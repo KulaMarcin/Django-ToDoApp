@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+              integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+              crossorigin="anonymous">
+        {% load static %}
+        <link rel="stylesheet" type="text/css" href="{% static 'todo/style.css' %}">
+        <link href="https://fonts.googleapis.com/css?family=Kalam&display=swap" rel="stylesheet">
+        <title>ToDoApp</title>
+    </head>
+</head>
+<body>
+
+<div class="container-fluid container-style">
+
+    <div class="row">
+
+        <div class="col">
+            <h1 class="logo-style">ToDoApp</h1>
+        </div>
+
+    </div>
+
+    <div class="row add-task-row">
+
+        <div class="col">
+            <form method="post" action="/">
+                {% csrf_token %}
+                {{ form.title }}
+                <input type="submit" class="btn btn-primary btn-lg" name="Create Task" value="Dodaj">
+            </form>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col">
+            <table class="table table-striped">
+                <thead>
+                <tr align="center">
+                    <th scope="col">Zadanie</th>
+                    <th scope="col">Akcja</th>
+                    <th scope="col">Status</th>
+
+                </tr>
+                </thead>
+                <tbody>
+                {% for task in tasks %}
+                    <tr align="center">
+                        <td width="33%">
+                            {{ task.title }}
+                        </td>
+                        <td width="33%">
+                            <a href="{% url 'update_task' task.id %}">Zaktualizuj</a>
+                            <a href="{% url 'delete_task' task.id %}">Usuń</a>
+                        </td>
+                        <td width="33%">
+                            {% if task.complete == True %}
+                                <img src="{% static 'todo/img/done-pro-sm.png' %}">
+                            {% else %}
+                                <img src="{% static 'todo/img/notdone-pro-sm.png' %}">
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
