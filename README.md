@@ -1,4 +1,4 @@
-# MyToDoApp
+# Django-ToDoApp
 Python Django ToDoApp - my first django app
 
 <br>
